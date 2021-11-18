@@ -1,0 +1,12 @@
+
+<div *ngIf="dataHero$ | async as dataHero">
+  <h2>{{dataHero.name}} Details</h2>
+  <div><span>id:</span>{{dataHero.id}}</div>
+  <div><span>name:</span>{{dataHero.name}}</div>
+  <div class="">
+    <label for="name">Hero name:</label>
+    <input type="text" id= "name"[(ngModel)]="dataHero.name">
+  </div>
+  <button (click)="goBack()">Go back</button>
+  <button (click)="save(dataHero)">Save</button>
+</div>
