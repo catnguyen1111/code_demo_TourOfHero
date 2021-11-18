@@ -10,13 +10,7 @@ export interface HeroStateModel{
   selectedHero:Hero;
   heroes:Hero[];
 }
-// @State<HeroStateModel>({
-//   name: 'hero',
-//   defaults: {
-//     selectedHero:null,
-//     heroes: [],
-//   }
-// })
+
 @Injectable({
   providedIn: 'root'
 })
