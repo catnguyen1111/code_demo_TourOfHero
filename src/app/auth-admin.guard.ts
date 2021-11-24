@@ -1,18 +1,17 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanDeactivate, CanLoad, Route, Router, RouterStateSnapshot, UrlSegment, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, CanDeactivate, CanLoad, Route, RouterStateSnapshot, UrlSegment, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from './Services/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<unknown>, CanLoad {
-  constructor(private auth: AuthService,private router: Router){}
+export class AuthAdminGuard implements CanActivate, CanActivateChild, CanDeactivate<unknown>, CanLoad {
+  constructor(private auth: AuthService){}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-
-    return this.auth.isUser;
+    return this.auth.isAdmin;
   }
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
@@ -24,7 +23,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
     currentRoute: ActivatedRouteSnapshot,
     currentState: RouterStateSnapshot,
     nextState?: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.auth.isAuthorized;
+    return true;
   }
   canLoad(
     route: Route,

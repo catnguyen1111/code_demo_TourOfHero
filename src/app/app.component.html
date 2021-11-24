@@ -1,11 +1,15 @@
 <h1>{{title}}</h1>
 <nav>
+  <a [routerLink]="['/login']" routerLinkActive="router-link-active" >Login</a>
+  &nbsp;
+  <a (click)= "logout()">Logout</a>
+  &nbsp;
   <a [routerLink]="['/heroes']" routerLinkActive="router-link-active" >Heroes</a>
   &nbsp;
   <a [routerLink]="['/dashboard']" routerLinkActive="router-link-active" >DashBoard</a>
   &nbsp;
-  <a [routerLink]="['/pop']" routerLinkActive="router-link-active" >POPUP</a>
+
 </nav>
 
 <router-outlet></router-outlet>
-<app-messages></app-messages>
+<!-- <app-messages></app-messages> -->

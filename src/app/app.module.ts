@@ -17,6 +17,7 @@ import { HeroSearchComponent } from './hero-search/hero-search.component'
 import { HeroState } from './Store/hero.state';
 import { AuthService } from './Services/auth.service';
 import { PopupComponent } from './popup/popup.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PopupComponent } from './popup/popup.component';
     MessagesComponent,
     DashboardComponent,
     HeroSearchComponent,
-    PopupComponent
+    PopupComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
