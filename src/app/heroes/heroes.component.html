@@ -2,7 +2,7 @@
 <h1>My Heros</h1>
 <div >
   <label for="new-hero">Hero name:</label>
-  <input type="text" id = "new-hero" #heroName>
+  <input type="text" id = "new-hero" (blur) = "blur()"   #heroName>
   <button class="add-button" (click)= "add(heroName.value); heroName.value ='' ">
     Add Hero
   </button>
@@ -17,5 +17,6 @@
     <button class="delete" title="delete hero"
       (click)="delete(hero)">x</button>
   </li>
+
 </ul>
-<!-- <app-hero-detail [dataHero] = 'selectedHero'></app-hero-detail> -->
+<div #dynamicComponent></div>
