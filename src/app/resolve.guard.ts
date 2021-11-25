@@ -12,7 +12,7 @@ export class ResolveGuard implements Resolve<any> {
 
   constructor(private hero: HeroService, private store: Store,){}
 
-  resolve(router:ActivatedRouteSnapshot):Observable<any>{
+  resolve(router:ActivatedRouteSnapshot){
     const id = Number(router.paramMap.get('id'));
     // return this.hero.getHero(id); dùng service ';'
     return this.store.dispatch(new HeroAction.GetHero(id))
