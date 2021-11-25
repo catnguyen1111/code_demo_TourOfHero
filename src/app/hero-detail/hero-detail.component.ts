@@ -31,8 +31,9 @@ export class HeroDetailComponent implements OnInit {
     // // this.heroService.getHero(id).subscribe(hero => this.dataHero = hero);
     // this.store.dispatch(new HeroAction.GetHero(id))
     //sử dụng reslove router
-    this.dataHero = this.router.snapshot.data['data'];
-    console.log( this.dataHero)
+    this.router.snapshot.data['data'];
+
+
   }
   goBack(){
     this.location.back();

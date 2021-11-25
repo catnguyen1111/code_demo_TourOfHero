@@ -13,7 +13,6 @@ import { ResolveGuard } from './resolve.guard';
 const routes: Routes = [
   {path:'',redirectTo : '/login',pathMatch : 'full'},
   {path:'login',component:LoginComponent,canDeactivate:[AuthGuard]},
-  {path:'message',component:MessagesComponent,canLoad : [AuthGuard]},
   {path:'heroes',component:HeroesComponent,canActivate :[AuthGuard]},
   {path:'dashboard',component:DashboardComponent,canActivate :[AuthGuard]},
   {path:'detail/:id',component:HeroDetailComponent,canActivate :[AuthAdminGuard],

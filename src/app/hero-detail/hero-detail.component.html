@@ -1,5 +1,5 @@
 
-<div *ngIf="dataHero">
+<div *ngIf="dataHero$ | async as dataHero">
   <h2>{{dataHero.name}} Details</h2>
   <div><span>id:</span>{{dataHero.id}}</div>
   <div><span>name:</span>{{dataHero.name}}</div>
