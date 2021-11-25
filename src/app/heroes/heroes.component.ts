@@ -22,8 +22,8 @@ export class HeroesComponent implements OnInit,AfterViewInit,OnDestroy {
   @Select(HeroState.heroes) heroes$ !: Observable<Hero[]>;
   public selectedHero ?:Hero;
   public heroes:Hero[] = [];
-  public check:boolean = false;
-  public dulieu:any = false;
+  check:boolean = false;
+  public dulieu:string = '';
   @ViewChild('dynamicComponent',{
     read: ViewContainerRef,
     static: true
@@ -69,7 +69,6 @@ export class HeroesComponent implements OnInit,AfterViewInit,OnDestroy {
     if (!name) {
       return;
     }
-    this.auth.login();
     this.store.dispatch(new HeroAction.AddHero({name} as Hero))
   }
   delete(hero: Hero): void {
@@ -86,11 +85,13 @@ export class HeroesComponent implements OnInit,AfterViewInit,OnDestroy {
 
     const componentFactory =  this.cfr.resolveComponentFactory(PopupComponent);
     const componentRef = this.containerRef.createComponent(componentFactory,0,injector);
-    componentRef.instance.data = this.dulieu;
+    componentRef.instance.data = this.check;
+
 
   }
-  blur(){
-    this.dulieu = true;
+  blur() {
+
+    this.check = true;
     this.addDynamicComponenetOne()
   }
 }

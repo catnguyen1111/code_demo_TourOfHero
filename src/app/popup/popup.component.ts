@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AlertService } from '../Services/alert.service';
 
 @Component({
@@ -8,7 +8,8 @@ import { AlertService } from '../Services/alert.service';
 })
 export class PopupComponent implements OnInit {
   @Input() data:any;
-  @Input() data1:any;
+
+
   confirms:any;
   constructor(private alertService: AlertService) { }
 
@@ -16,11 +17,14 @@ export class PopupComponent implements OnInit {
     if(this.data === true){
       this.run();
     }
+
   }
   run(){
+
     this.confirms = confirm('Bạn chưa lưu dữ liệu vui lòng lưu dữ liệu');
     if(this.confirms === true){
       this.alertService.close()
+
     }
   }
 }

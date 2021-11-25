@@ -8,14 +8,19 @@ import { HeroesComponent } from './heroes/heroes.component';
 import { LoginComponent } from './login/login.component';
 import { PopupComponent } from './popup/popup.component';
 import { AuthService } from './Services/auth.service';
-
+import {MessagesComponent} from './messages/messages.component';
+import { ResolveGuard } from './resolve.guard';
 const routes: Routes = [
   {path:'',redirectTo : '/login',pathMatch : 'full'},
   {path:'login',component:LoginComponent,canDeactivate:[AuthGuard]},
-  // {path:'heroes',component:HeroesComponent,canDeactivate:[AuthGuard]},
-  {path:'heroes',component:HeroesComponent,canActivate :[AuthGuard],canDeactivate:[AuthGuard]},
-  {path:'dashboard',component:DashboardComponent,canActivate :[AuthGuard],canDeactivate:[AuthGuard]},
-  {path:'detail/:id',component:HeroDetailComponent,canActivate :[AuthAdminGuard],canDeactivate:[AuthGuard]},
+  {path:'message',component:MessagesComponent,canLoad : [AuthGuard]},
+  {path:'heroes',component:HeroesComponent,canActivate :[AuthGuard]},
+  {path:'dashboard',component:DashboardComponent,canActivate :[AuthGuard]},
+  {path:'detail/:id',component:HeroDetailComponent,canActivate :[AuthAdminGuard],
+    resolve:{
+      data:ResolveGuard,
+    }
+  },
 
 
 ];

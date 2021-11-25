@@ -18,6 +18,7 @@ import { HeroState } from './Store/hero.state';
 import { AuthService } from './Services/auth.service';
 import { PopupComponent } from './popup/popup.component';
 import { LoginComponent } from './login/login.component';
+import { ResolveGuard } from './resolve.guard';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { LoginComponent } from './login/login.component';
       InMemoryDataService, { dataEncapsulation: false }),
     NgxsModule.forRoot([HeroState]),
   ],
-  providers: [AuthService],
+  providers: [AuthService,ResolveGuard],
   bootstrap: [AppComponent],
   entryComponents: [PopupComponent],
 })

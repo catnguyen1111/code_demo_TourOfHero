@@ -13,8 +13,9 @@ import * as HeroAction from '../Store/hero.action';
   styleUrls: ['./hero-detail.component.scss']
 })
 export class HeroDetailComponent implements OnInit {
-  // @Input() dataHero?:Hero;
+  @Input() dataHero?:Hero;
   @Select(HeroState.selectedHero) dataHero$ !: Observable<Hero>;
+
   constructor(
     private heroService: HeroService,
     private router:ActivatedRoute,
@@ -26,9 +27,12 @@ export class HeroDetailComponent implements OnInit {
     this.getHero();
   }
   getHero(){
-    const id = Number(this.router.snapshot.paramMap.get('id'));
-    // this.heroService.getHero(id).subscribe(hero => this.dataHero = hero);
-    this.store.dispatch(new HeroAction.GetHero(id))
+    // const id = Number(this.router.snapshot.paramMap.get('id'));
+    // // this.heroService.getHero(id).subscribe(hero => this.dataHero = hero);
+    // this.store.dispatch(new HeroAction.GetHero(id))
+    //sử dụng reslove router
+    this.dataHero = this.router.snapshot.data['data'];
+    console.log( this.dataHero)
   }
   goBack(){
     this.location.back();
