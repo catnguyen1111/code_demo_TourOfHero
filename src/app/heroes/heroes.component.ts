@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ComponentFactoryResolver, ComponentRef, ElementRef, INJECTOR, OnDestroy, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { Observable, of } from 'rxjs';
+import { Observable, of, timer } from 'rxjs';
 
 import {HeroState} from '../Store/hero.state'
 import * as HeroAction from '../Store/hero.action'
@@ -13,6 +13,8 @@ import { AuthService } from '../Services/auth.service';
 import { FormControl } from '@angular/forms';
 import {PopupComponent} from '../popup/popup.component';
 import { AlertService } from '../Services/alert.service';
+import { LoadingService } from '../Services/loading.service';
+import { delay } from 'rxjs/operators';
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
@@ -36,7 +38,8 @@ export class HeroesComponent implements OnInit,AfterViewInit,OnDestroy {
     private store:Store,
     private auth: AuthService,
     private cfr: ComponentFactoryResolver,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private loader: LoadingService
     ) {}
 
   ngOnInit(): void {
@@ -51,6 +54,7 @@ export class HeroesComponent implements OnInit,AfterViewInit,OnDestroy {
       }
     )
   }
+
   ngAfterViewInit(){
     this.addDynamicComponenetOne();
   }

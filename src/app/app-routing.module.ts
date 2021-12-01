@@ -19,6 +19,7 @@ const routes: Routes = [
     resolve:{
       data:ResolveGuard,
     }
+
   },
 
 

@@ -4,7 +4,8 @@ import { Hero } from '../model/hero';
 import {Observable,of} from 'rxjs'
 import { MessageService } from './message.service';
 import {HttpClient,HttpHeaders} from '@angular/common/http';
-import {map,tap,catchError} from 'rxjs/operators';
+import {map,tap,catchError, delay, finalize} from 'rxjs/operators';
+import { LoadingService } from './loading.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +16,8 @@ export class HeroService {
   };
   constructor(
     private messageService: MessageService,
-    private http: HttpClient
+    private http: HttpClient,
+    public loader:LoadingService
     ) {}
 
   private log(message: string){
@@ -40,8 +42,9 @@ export class HeroService {
   getHero(id: number): Observable<Hero>{
     const url = `${this.heroesUrl}/${id}`;
     return this.http.get<Hero>(url).pipe(
+
       tap(_=>this.log(`fetched hero id = ${id}`)),
-      catchError(this.handleError<Hero>(`getHero id = ${id}`))
+      catchError(this.handleError<Hero>(`getHero id = ${id}`)),
     )
   }
   updateHero(hero:Hero): Observable<any>{
@@ -75,4 +78,6 @@ export class HeroService {
       catchError(this.handleError<Hero[]>('searchHeroes', []))
     );
   }
+
+
 }

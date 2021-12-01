@@ -31,6 +31,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -77,6 +78,7 @@
             "development": {
               "browserTarget": "TourOfHeroes:build:development"
             }
+
           },
           "defaultConfiguration": "development"
         },
@@ -99,11 +101,13 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
           }
         }
+
       }
     }
   },

@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { NgxsModule } from '@ngxs/store';
-
 
 import { AppComponent } from './app.component';
 import { HeroesComponent } from './heroes/heroes.component';
@@ -19,6 +18,16 @@ import { AuthService } from './Services/auth.service';
 import { PopupComponent } from './popup/popup.component';
 import { LoginComponent } from './login/login.component';
 import { ResolveGuard } from './resolve.guard';
+
+import {TranslateModule,TranslateLoader} from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatButtonModule} from '@angular/material/button';
+import { NetworkInterceptor } from './network.interceptor';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -38,11 +47,21 @@ import { ResolveGuard } from './resolve.guard';
     ReactiveFormsModule,
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }),
+    InMemoryDataService, { dataEncapsulation: false }),
     NgxsModule.forRoot([HeroState]),
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatProgressSpinnerModule,
+    MatButtonModule,
+    NgxSpinnerModule
   ],
-  providers: [AuthService,ResolveGuard],
+  providers: [AuthService,ResolveGuard,{
+    provide : HTTP_INTERCEPTORS,
+    useClass : NetworkInterceptor,
+    multi:true
+  }],
   bootstrap: [AppComponent],
   entryComponents: [PopupComponent],
 })
 export class AppModule { }
+
