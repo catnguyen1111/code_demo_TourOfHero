@@ -22,6 +22,5 @@ export class ResolveGuard implements Resolve<any> {
     console.log("check",this.check)
     this.spinner.show()
     return of(this.store.dispatch(new HeroAction.GetHero(id))).pipe(delay(3000))
-
   }
 }

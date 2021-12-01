@@ -41,8 +41,6 @@ export class HeroDetailComponent implements OnInit {
     this.check = false;
     console.log("Nhận được dữ liệu")
     this.spinner.hide()
-
-
   }
   goBack(){
     this.location.back();

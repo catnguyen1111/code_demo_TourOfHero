@@ -29,6 +29,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { NetworkInterceptor } from './network.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
 
+
 @NgModule({
   declarations: [
     AppComponent,
