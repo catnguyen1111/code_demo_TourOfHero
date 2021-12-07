@@ -11,7 +11,7 @@ import { AuthService } from './Services/auth.service';
 import {MessagesComponent} from './messages/messages.component';
 import { ResolveGuard } from './resolve.guard';
 const routes: Routes = [
-  {path:'',redirectTo : '/login',pathMatch : 'full'},
+  {path:'',redirectTo : '',pathMatch : 'full'},
   {path:'login',component:LoginComponent,canDeactivate:[AuthGuard]},
   {path:'heroes',component:HeroesComponent,canActivate :[AuthGuard]},
   {path:'dashboard',component:DashboardComponent,canActivate :[AuthGuard]},

@@ -25,9 +25,12 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
 import { NetworkInterceptor } from './network.interceptor';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import {ValueAccessorModule} from './value-accessor.module';
 
 
 @NgModule({
@@ -39,7 +42,8 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     DashboardComponent,
     HeroSearchComponent,
     PopupComponent,
-    LoginComponent
+    LoginComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -54,7 +58,11 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     MatToolbarModule,
     MatProgressSpinnerModule,
     MatButtonModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatFormFieldModule,
+    ValueAccessorModule,
+    MatProgressBarModule
+
   ],
   providers: [AuthService,ResolveGuard,{
     provide : HTTP_INTERCEPTORS,

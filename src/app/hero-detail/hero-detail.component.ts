@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router,Event} from '@angular/router';
 import {Location} from '@angular/common';
 import { Hero } from '../model/hero';
 import { HeroService } from '../Services/hero.service';
@@ -19,13 +19,43 @@ export class HeroDetailComponent implements OnInit {
   @Input() dataHero?:Hero;
   @Select(HeroState.selectedHero) dataHero$ !: Observable<Hero>;
   public check:boolean = true;
+  loading:boolean = false;
+  check_router:boolean = false;
+  timeout:any;
   constructor(
     private heroService: HeroService,
     private router:ActivatedRoute,
     private location: Location,
     private store: Store,
-    private spinner: NgxSpinnerService
-  ) { }
+    private spinner: NgxSpinnerService,
+    private router1:Router
+  ) {
+    this.router1.events.subscribe((event:Event) => {
+      switch(true){
+        case event instanceof NavigationStart:{
+          this.loading = true;
+          break;
+        }
+        case event instanceof NavigationEnd:{
+          this.timeout = setTimeout(() => {
+            clearTimeout(this.timeout);
+            this.loading = false;
+            this.check_router = true;
+         }, 1000);
+          break;
+        }
+        case event instanceof NavigationCancel:
+        case event instanceof NavigationError:{
+          this.loading = false;
+          break;
+        }
+        default:{
+          break;
+        }
+
+      }
+    })
+   }
 
   ngOnInit(): void {
     this.getHero();

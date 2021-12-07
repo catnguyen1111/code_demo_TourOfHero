@@ -8,13 +8,13 @@ import {Hero} from '../model/hero'
 import {HEROES} from '../mock-heroes/mock-heroes'
 import { HeroService } from '../Services/hero.service';
 import { MessageService } from '../Services/message.service';
-import { Router } from '@angular/router';
+import { Event,NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { AuthService } from '../Services/auth.service';
 import { FormControl } from '@angular/forms';
 import {PopupComponent} from '../popup/popup.component';
 import { AlertService } from '../Services/alert.service';
 import { LoadingService } from '../Services/loading.service';
-import { delay } from 'rxjs/operators';
+import { delay, timeout } from 'rxjs/operators';
 @Component({
   selector: 'app-heroes',
   templateUrl: './heroes.component.html',
@@ -25,6 +25,9 @@ export class HeroesComponent implements OnInit,AfterViewInit,OnDestroy {
   public selectedHero ?:Hero;
   public heroes:Hero[] = [];
   check:boolean = false;
+  check_router:boolean = false;
+  timeout:any;
+  loading:boolean = false;
   public dulieu:string = '';
   @ViewChild('dynamicComponent',{
     read: ViewContainerRef,
@@ -39,8 +42,36 @@ export class HeroesComponent implements OnInit,AfterViewInit,OnDestroy {
     private auth: AuthService,
     private cfr: ComponentFactoryResolver,
     private alertService: AlertService,
-    private loader: LoadingService
-    ) {}
+    private loader: LoadingService,
+    private router: Router
+    ) {
+      this.router.events.subscribe((event:Event) => {
+        switch(true){
+          case event instanceof NavigationStart:{
+            this.loading = true;
+            break;
+          }
+          case event instanceof NavigationEnd:{
+            this.timeout = setTimeout(() => {
+              clearTimeout(this.timeout);
+              this.loading = false;
+              this.check_router = true;
+           }, 1000);
+            break;
+          }
+          case event instanceof NavigationCancel:
+          case event instanceof NavigationError:{
+            this.loading = false;
+            break;
+          }
+          default:{
+            break;
+          }
+
+        }
+      })
+    }
+
 
   ngOnInit(): void {
     this.getHeroes();

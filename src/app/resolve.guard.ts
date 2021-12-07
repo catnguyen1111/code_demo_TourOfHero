@@ -20,7 +20,7 @@ export class ResolveGuard implements Resolve<any> {
     console.log("Đang call dữ liệu")
     this.check = true
     console.log("check",this.check)
-    this.spinner.show()
-    return of(this.store.dispatch(new HeroAction.GetHero(id))).pipe(delay(3000))
+    // this.spinner.show()
+    return of(this.store.dispatch(new HeroAction.GetHero(id))).pipe(delay(2000))
   }
 }

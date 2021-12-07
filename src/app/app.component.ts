@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router,Event,NavigationEnd,NavigationStart,NavigationCancel,NavigationError } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from './Services/auth.service';
 import { LoadingService } from './Services/loading.service';
@@ -9,9 +10,41 @@ import { LoadingService } from './Services/loading.service';
 })
 export class AppComponent implements OnInit {
   title = 'TourOfHeroes';
-  loading$ = this.loader.loading$;
+  loading: boolean = false;
+  check :boolean = false;
+  timeout: any;
   constructor(
-    private authService: AuthService,public loader:LoadingService){ }
+    private authService: AuthService,
+    public loader:LoadingService,
+    private router: Router
+    ){
+      this.router.events.subscribe((event:Event) => {
+        switch(true){
+          case event instanceof NavigationStart:{
+
+            this.loading = true;
+            break;
+          }
+          case event instanceof NavigationEnd:{
+            this.timeout = setTimeout(() => {
+              clearTimeout(this.timeout);
+              this.loading = false;
+
+           }, 1000);
+            break;
+          }
+          case event instanceof NavigationCancel:
+          case event instanceof NavigationError:{
+            this.loading = false;
+            break;
+          }
+          default:{
+            break;
+          }
+
+        }
+      })
+    }
 
   ngOnInit(): void {
 
