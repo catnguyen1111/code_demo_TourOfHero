@@ -20,8 +20,10 @@ import { coerceStringArray } from '@angular/cdk/coercion';
   }]
 })
 export class ValueAccessorComponent implements OnInit,ControlValueAccessor {
-  @Input() data:any;
-  value:any;
+
+  val = "" ;
+  onChange:any = () =>{};
+  onTouch:any = () =>{};
   @Select(HeroState.selectedHero) dataHero1$ !: Observable<Hero>;
 
   constructor(
@@ -31,22 +33,26 @@ export class ValueAccessorComponent implements OnInit,ControlValueAccessor {
     private store: Store,
 
   ) { }
-  writeValue(obj: any): void {
-    this.value = obj;
-    console.log("obj",this.value);
-  }
-  registerOnChange(fn: any): void {
-    this.value = fn;
-    console.log("obj",this.value);
-  }
-  registerOnTouched(fn: any): void {
-    this.value = fn;
-    console.log("obj",this.value);
-  }
-
   ngOnInit(): void {
 
   }
+  writeValue(val: any): void {
+    this.val = val;
+    // this.onChange(this.val)
+    // this.onTouch(this.val)
+    console.log("obj", this.val);
+  }
+  registerOnChange(fn: any): void {
+   this.onChange = fn;
+    console.log("registerOnChange",this.onChange);
+  }
+  registerOnTouched(fn: any): void {
+    this.onTouch = fn;
+    console.log("registerOnTouched",this.onTouch);
+  }
+  setDisabledState(isDisabled: boolean) {
+  }
+
 
 
 }

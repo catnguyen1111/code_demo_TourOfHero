@@ -6,8 +6,8 @@
     <div><span>name:</span>{{dataHero.name}}</div>
     <div class="">
       <label for="name">Hero name:</label>
-      <input type="text" id= "name"[(ngModel)]="dataHero.name">
-      <!-- <app-value-accessor [data] = dataHero.name></app-value-accessor> -->
+      <!-- <input type="text" id= "name"[(ngModel)]="dataHero.name"> -->
+      <app-value-accessor [(ngModel)] = "dataHero.name"></app-value-accessor>
     </div>
     <button (click)="goBack()">Go back</button>
     <button (click)="save(dataHero)">Save</button>

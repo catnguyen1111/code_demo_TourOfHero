@@ -4,11 +4,12 @@
       <input
       matInput
       type="text"
-      name="data"
-      [(ngModel)]="data"
+      name="val"
+      [(ngModel)]="val"
+      #data = "ngModel"
+      (input) = "onChange(data.control.value)"
      />
     </mat-form-field>
-
   </form>
 
 
