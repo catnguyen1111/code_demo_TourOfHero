@@ -10,6 +10,8 @@ import * as HeroAction from '../Store/hero.action';
 import { LoadingService } from '../Services/loading.service';
 import { delay, finalize } from 'rxjs/operators';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { identifierName } from '@angular/compiler';
 @Component({
   selector: 'app-hero-detail',
   templateUrl: './hero-detail.component.html',
@@ -21,14 +23,18 @@ export class HeroDetailComponent implements OnInit {
   public check:boolean = true;
   loading:boolean = false;
   check_router:boolean = false;
+  data_update :any;
   timeout:any;
+  data_test!:Hero
+  form!:FormGroup;
   constructor(
     private heroService: HeroService,
     private router:ActivatedRoute,
     private location: Location,
     private store: Store,
     private spinner: NgxSpinnerService,
-    private router1:Router
+    private router1:Router,
+    private fb: FormBuilder
   ) {
     this.router1.events.subscribe((event:Event) => {
       switch(true){
@@ -59,6 +65,15 @@ export class HeroDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.getHero();
+    this.dataHero$.subscribe(data =>{this.data_update = data})
+    this.form = new FormGroup({
+      id: new FormControl(this.data_update.id),
+      name : new FormControl(this.data_update.name)
+    })
+
+      console.log("form data ",this.form.controls);
+     console.log("form data id",this.form.controls.id.value);
+     console.log("form data name",this.form.controls.name.value);
 
   }
   getHero(){
@@ -75,10 +90,19 @@ export class HeroDetailComponent implements OnInit {
   goBack(){
     this.location.back();
   }
-  save(dataHero:Hero){
-    // if(this.dataHero){
-    //   this.heroService.updateHero(this.dataHero).subscribe(() => this.goBack())
-    // }
-    this.store.dispatch(new HeroAction.UpdateHero(dataHero)).subscribe(() => this.goBack())
+  // onSubmit(){
+  //   console.log("submit",this.form)
+  // }
+  // save(dataHero:Hero){
+  //   // if(this.dataHero){
+  //   //   this.heroService.updateHero(this.dataHero).subscribe(() => this.goBack())
+  //   // }
+
+  //   console.log("dataHero",dataHero);
+  //   // this.store.dispatch(new HeroAction.UpdateHero(dataHero)).subscribe(() => this.goBack())
+  // }
+  save(id:number,name: string){
+    this.data_test = {id,name}
+    this.store.dispatch(new HeroAction.UpdateHero(this.data_test)).subscribe(() => this.goBack())
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router,Event,NavigationEnd,NavigationStart,NavigationCancel,NavigationError } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from './Services/auth.service';
+import { HeroService } from './Services/hero.service';
 import { LoadingService } from './Services/loading.service';
 @Component({
   selector: 'app-root',
@@ -16,7 +17,8 @@ export class AppComponent implements OnInit {
   constructor(
     private authService: AuthService,
     public loader:LoadingService,
-    private router: Router
+    private router: Router,
+    private heroService: HeroService
     ){
       this.router.events.subscribe((event:Event) => {
         switch(true){
@@ -29,7 +31,6 @@ export class AppComponent implements OnInit {
             this.timeout = setTimeout(() => {
               clearTimeout(this.timeout);
               this.loading = false;
-
            }, 1000);
             break;
           }
@@ -47,7 +48,8 @@ export class AppComponent implements OnInit {
     }
 
   ngOnInit(): void {
-
+    console.log("check truoc",this.check)
+    console.log("check hero truoc",this.heroService.check)
   }
 
   logout(){

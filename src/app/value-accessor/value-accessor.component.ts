@@ -36,9 +36,12 @@ export class ValueAccessorComponent implements OnInit,ControlValueAccessor {
   ngOnInit(): void {
 
   }
+  getValue(event: Event): string {
+    return (event.target as HTMLInputElement).value;
+  }
   writeValue(val: any): void {
     this.val = val;
-    // this.onChange(this.val)
+    this.onChange(this.val);
     // this.onTouch(this.val)
     console.log("obj", this.val);
   }

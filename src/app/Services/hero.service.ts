@@ -11,6 +11,7 @@ import { LoadingService } from './loading.service';
 })
 export class HeroService {
   public heroesUrl = 'api/heroes';
+  public check :boolean = false;
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
